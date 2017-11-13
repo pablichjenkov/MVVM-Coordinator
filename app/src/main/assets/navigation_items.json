@@ -1,0 +1,50 @@
+[
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "Fragment1",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment1",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "Fragment2",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment2",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.AdNavigationItem",
+    "screenId": "Fragment_Fake2",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment2",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "Fragment3",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment3",
+    "isSelectable":false
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "Fragment4",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment4",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.CustomNavigationItem",
+    "screenId": "Fragment_Fake1",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment1",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "Fragment5",
+    "screenClass": "com.intervalintl.voltus.fragment.Fragment5",
+    "isSelectable":true
+  },
+  {
+    "sideMenuModelClass": "com.intervalintl.voltus.navigation.NavigationItem",
+    "screenId": "ActivityInner",
+    "screenClass": "com.intervalintl.voltus.MainActivity",
+    "isSelectable":false
+  }
+]
