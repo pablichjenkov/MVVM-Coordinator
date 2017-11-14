@@ -30,14 +30,14 @@
 
         <!-- main content view -->
         <FrameLayout
-            android:id="@+id/shell_activity_content_frame"
+            android:id="@+id/drawer_activity_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/background_light"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/activity_shell_fab_drawer_toggle"
+            android:id="@+id/activity_drawer_fab_drawer_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

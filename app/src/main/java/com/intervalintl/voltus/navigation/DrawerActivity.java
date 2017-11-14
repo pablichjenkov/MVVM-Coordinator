@@ -2,7 +2,6 @@ package com.intervalintl.voltus.navigation;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,47 +17,49 @@ import com.intervalintl.voltus.viewmodel.ViewModelBinding;
 import com.pedrogomez.renderers.RVRendererAdapter;
 
 
-public class ShellActivity extends BaseActivity {
+public class DrawerActivity extends BaseActivity {
 
-    private NavigationDrawerViewModel mDrawerViewModel;
-    private ViewModelBinding mViewModelBinding;
-    private DrawerLayout mDrawerLayout;
-    private NavigationDrawer mNavigationDrawer;
-    private RecyclerView mRecyclerView;
-    private FloatingActionButton mButtonDrawerToggle;
+    protected DrawerActivityViewModel mDrawerViewModel;
+    protected ViewModelBinding mViewModelBinding;
+    protected DrawerLayout mDrawerLayout;
+    protected NavigationDrawer mNavigationDrawer;
+    protected RecyclerView mRecyclerView;
+    protected RVRendererAdapter<NavigationItem> mSideMenuRendererAdapter;
+    protected FloatingActionButton mButtonDrawerToggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shell);
+        setContentView(R.layout.activity_drawer);
         setupView();
     }
 
     @Override
-    public int getFragmentContainerId() {
-        return R.id.shell_activity_content_frame;
+    protected int getFragmentContainerId() {
+        return R.id.drawer_activity_fragment_container;
     }
 
-    private void setupView() {
+    protected void setupView() {
 
-        mDrawerViewModel = ViewModelProviders.of(ShellActivity.this)
-                .get(NavigationDrawerViewModel.class);
+        mDrawerViewModel = ViewModelProviders.of(DrawerActivity.this)
+                .get(DrawerActivityViewModel.class);
 
-        mDrawerViewModel.getObservable().observe(ShellActivity.this
-                , new Observer<NavigationDrawerViewModel.Event>() {
+        mDrawerViewModel.getObservable().observe(DrawerActivity.this
+                , new Observer<DrawerActivityViewModel.Event>() {
 
             @Override
-            public void onChanged(@Nullable NavigationDrawerViewModel.Event event) {
+            public void onChanged(@Nullable DrawerActivityViewModel.Event event) {
 
-                switch (event) {
+                switch (event.type) {
 
-                    case AdapterReady:
-                        setAdapter(mDrawerViewModel.getAdapter());
+                    case AdapterCreated:
+                        mSideMenuRendererAdapter = (RVRendererAdapter<NavigationItem>)event.payload;
+                        setAdapter(mSideMenuRendererAdapter);
                         break;
 
                     case AdapterChanged:
-                        setAdapter(mDrawerViewModel.getAdapter());
+                        mSideMenuRendererAdapter.notifyDataSetChanged();
                         break;
 
                     case OpenDrawer:
@@ -84,12 +85,12 @@ public class ShellActivity extends BaseActivity {
         mNavigationDrawer = mDrawerLayout.findViewById(R.id.navigation_drawer);
         mRecyclerView = mNavigationDrawer.findViewById(R.id.navigation_drawer_recycler);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(DrawerActivity.this
                 , LinearLayoutManager.VERTICAL, false));
 
         mViewModelBinding = new ViewModelBinding(mDrawerViewModel, mDrawerLayout);
 
-        mButtonDrawerToggle = findViewById(R.id.activity_shell_fab_drawer_toggle);
+        mButtonDrawerToggle = findViewById(R.id.activity_drawer_fab_drawer_toggle);
         mButtonDrawerToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,28 +100,20 @@ public class ShellActivity extends BaseActivity {
 
     }
 
-    //@Override
-    public void setAdapter(RVRendererAdapter<NavigationItem> mSideMenuRendererAdapter) {
-        mRecyclerView.setAdapter(mSideMenuRendererAdapter);
+    protected void setAdapter(RVRendererAdapter<NavigationItem> sideMenuRendererAdapter) {
+        mRecyclerView.setAdapter(sideMenuRendererAdapter);
     }
 
-    //@Override
-    public Context getContext() {
-        return this;
-    }
-
-    //@Override
-    public void closeDrawer(int gravity) {
+    protected void closeDrawer(int gravity) {
         mDrawerLayout.closeDrawer(gravity);
     }
 
-    //@Override
-    public void openDrawer(int gravity) {
+    protected void openDrawer(int gravity) {
         mDrawerLayout.openDrawer(gravity);
     }
 
 
-    private DrawerLayout.DrawerListener mDrawerListener = new DrawerLayout.DrawerListener() {
+    protected DrawerLayout.DrawerListener mDrawerListener = new DrawerLayout.DrawerListener() {
 
         @Override
         public void onDrawerSlide(View drawerView, float slideOffset) {

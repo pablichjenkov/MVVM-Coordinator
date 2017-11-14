@@ -19,7 +19,7 @@ public class NavigationDrawer extends FrameLayout {
 
     private View mRootView;
     private RecyclerView mRecyclerView;
-    //private NavigationDrawerViewModel mDrawerPresenter;
+    //private DrawerActivityViewModel mDrawerPresenter;
 
 
     public NavigationDrawer(@NonNull Context context) {
@@ -50,7 +50,7 @@ public class NavigationDrawer extends FrameLayout {
         mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.navigation_drawer_recycler);
     }
 
-    /*public void setPresenter(NavigationDrawerViewModel drawerPresenter) {
+    /*public void setPresenter(DrawerActivityViewModel drawerPresenter) {
 
     }
 

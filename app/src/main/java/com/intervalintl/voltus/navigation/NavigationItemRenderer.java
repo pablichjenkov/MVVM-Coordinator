@@ -18,11 +18,11 @@ public class NavigationItemRenderer extends Renderer<NavigationItem> {
     private View rootView;
     private ImageView menuItemIcon;
     private TextView menuItemName;
-    private NavigationDrawerViewModel drawerPresenter;
+    private DrawerActivityViewModel drawerViewModel;
 
 
-    public NavigationItemRenderer(NavigationDrawerViewModel drawerPresenter) {
-        this.drawerPresenter = drawerPresenter;
+    public NavigationItemRenderer(DrawerActivityViewModel drawerViewModel) {
+        this.drawerViewModel = drawerViewModel;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class NavigationItemRenderer extends Renderer<NavigationItem> {
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerPresenter.handleNavigationItem(getContent());
-                drawerPresenter.toggleDrawer();
+                drawerViewModel.handleNavigationItem(getContent());
+                drawerViewModel.toggleDrawer();
             }
         });
     }

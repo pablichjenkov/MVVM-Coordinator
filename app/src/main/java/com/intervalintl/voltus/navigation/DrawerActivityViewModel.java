@@ -24,13 +24,29 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> {
+public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
 
 
-    private static final String TAG = "DrawerPresenter";
+    private static final String TAG = "DrawerViewModel";
 
-    public enum Event {
-        AdapterReady,
+    public class Event {
+        public final EventType type;
+        public final Object payload;
+
+        public Event(EventType type) {
+            this.type = type;
+            this.payload = null;
+        }
+
+        public Event(EventType type, Object payload) {
+            this.type = type;
+            this.payload = payload;
+        }
+
+    }
+
+    public enum EventType {
+        AdapterCreated,
         AdapterChanged,
         CloseDrawer,
         OpenDrawer,
@@ -39,7 +55,6 @@ public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> 
     }
 
     private final MutableLiveData<Event> mObservable = new MutableLiveData<>();
-    private RVRendererAdapter<NavigationItem> mSideMenuRendererAdapter;
     private MenuItemManager mMenuItemManager;
     public boolean drawerOpenState;
     private boolean mIsRestore;
@@ -54,9 +69,11 @@ public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> 
         mMenuItemManager = setupItemManager();
         AdapteeCollection<NavigationItem> menuItemCollection = mMenuItemManager.mMenuItemCollection;
         RendererBuilder<NavigationItem> rendererBuilder = provideRendererBuilder();
-        mSideMenuRendererAdapter = new RVRendererAdapter<>(rendererBuilder, menuItemCollection);
 
-        mObservable.setValue(Event.AdapterReady);
+        RVRendererAdapter<NavigationItem> sideMenuRendererAdapter
+                = new RVRendererAdapter<>(rendererBuilder, menuItemCollection);
+
+        mObservable.setValue(new Event(EventType.AdapterCreated, sideMenuRendererAdapter));
 
         if (!mIsRestore) {
             mIsRestore = true;
@@ -75,10 +92,6 @@ public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> 
 
     public LiveData<Event> getObservable() {
         return mObservable;
-    }
-
-    public RVRendererAdapter<NavigationItem> getAdapter() {
-        return mSideMenuRendererAdapter;
     }
 
     public Link getNextLink() {
@@ -105,12 +118,12 @@ public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> 
     public void handleNavigationItem(NavigationItem navigationItem) {
 
         mCurLink = navigationItem.link;
-        mObservable.postValue(Event.LinkRequest);
+        mObservable.postValue(new Event(EventType.LinkRequest));
 
         if (navigationItem.isSelectable()) {
             mSelectedPosition = navigationItem.adapterPosition;
             mMenuItemManager.setSelected(navigationItem.adapterPosition);
-            mSideMenuRendererAdapter.notifyDataSetChanged();
+            mObservable.setValue(new Event(EventType.AdapterChanged));
         }
 
     }
@@ -118,11 +131,11 @@ public class NavigationDrawerViewModel<V extends View> extends BaseViewModel<V> 
     public void toggleDrawer() {
         if (drawerOpenState) {
             drawerOpenState = false;
-            mObservable.setValue(Event.CloseDrawer);
+            mObservable.setValue(new Event(EventType.CloseDrawer));
 
         } else {
             drawerOpenState = true;
-            mObservable.setValue(Event.OpenDrawer);
+            mObservable.setValue(new Event(EventType.OpenDrawer));
         }
     }
 

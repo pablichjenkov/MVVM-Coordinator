@@ -50,6 +50,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return mLinkHandlerDelegate;
     }
 
-    public abstract @IdRes int getFragmentContainerId();
+    protected abstract @IdRes int getFragmentContainerId();
 
 }
