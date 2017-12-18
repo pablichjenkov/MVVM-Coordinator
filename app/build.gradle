@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'de.felixschulze.gradle.hockeyapp'
 
 android {
     compileSdkVersion 26
@@ -32,6 +33,7 @@ dependencies {
     // Architecture Components
     implementation "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
     implementation "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
+    implementation 'com.android.support:support-v4:26.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
     implementation "android.arch.persistence.room:runtime:$rootProject.architectureComponentsVersion"
     implementation "android.arch.persistence.room:rxjava2:$rootProject.architectureComponentsVersion"
@@ -48,4 +50,9 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
+
+hockeyapp {
+    apiToken "29abf48e5e4746b8aa639999f87bdfb6"
+    notes "Testing apk upload script, not valid apk file"
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.intervalintl.voltus.Link;
+import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.R;
 import com.pedrogomez.renderers.Renderer;
 

@@ -11,7 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.intervalintl.voltus.FragmentComponent;
+import com.intervalintl.voltus.root.FragmentComponent;
 import com.intervalintl.voltus.R;
 
 

@@ -15,16 +15,22 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
+
+        <activity
+            android:name=".onboard.OnboardActivity"
+            android:label="@string/title_activity_onboard"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAUaYef7979BCcmbgQ6I3_9TSnnGhuFFy4"/>
+            android:value="AIzaSyAUaYef7979BCcmbgQ6I3_9TSnnGhuFFy4" />
 
     </application>
 

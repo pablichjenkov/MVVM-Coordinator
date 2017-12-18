@@ -10,17 +10,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import com.intervalintl.voltus.BaseActivity;
-import com.intervalintl.voltus.Link;
+import com.intervalintl.voltus.root.RootFragmentActivity;
+import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.viewmodel.ViewModelBinding;
+import com.intervalintl.voltus.viewmodel.ViewModelViewBinder;
 import com.pedrogomez.renderers.RVRendererAdapter;
 
 
-public class DrawerActivity extends BaseActivity {
+public class DrawerActivity extends RootFragmentActivity {
 
     protected DrawerActivityViewModel mDrawerViewModel;
-    protected ViewModelBinding mViewModelBinding;
+    protected ViewModelViewBinder mViewModelViewBinder;
     protected DrawerLayout mDrawerLayout;
     protected NavigationDrawer mNavigationDrawer;
     protected RecyclerView mRecyclerView;
@@ -88,7 +88,7 @@ public class DrawerActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DrawerActivity.this
                 , LinearLayoutManager.VERTICAL, false));
 
-        mViewModelBinding = new ViewModelBinding(mDrawerViewModel, mDrawerLayout);
+        mViewModelViewBinder = new ViewModelViewBinder(mDrawerViewModel, mDrawerLayout);
 
         mButtonDrawerToggle = findViewById(R.id.activity_drawer_fab_drawer_toggle);
         mButtonDrawerToggle.setOnClickListener(new View.OnClickListener() {

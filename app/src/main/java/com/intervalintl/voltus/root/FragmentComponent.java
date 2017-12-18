@@ -1,4 +1,4 @@
-package com.intervalintl.voltus;
+package com.intervalintl.voltus.root;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

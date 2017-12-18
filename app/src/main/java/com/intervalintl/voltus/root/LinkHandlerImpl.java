@@ -1,4 +1,4 @@
-package com.intervalintl.voltus;
+package com.intervalintl.voltus.root;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
     protected Activity mActivity;
     protected FragmentManager mFragmentManager;
     protected Link mCurLink;
+    protected BackPressHandler mCurBackPressHandler;
     protected int mFragmentContainerResId;
 
 
@@ -30,6 +31,10 @@ import android.support.v4.app.FragmentTransaction;
             mCurLink = (Link) savedInstance.getSerializable(KEY_CURRENT_LINK);
         }
 
+    }
+
+    public void setBackPressHandler(BackPressHandler curBackPressHandler) {
+        mCurBackPressHandler = curBackPressHandler;
     }
 
     public void onSaveInstanceState(Bundle outBundle) {
@@ -80,21 +85,18 @@ import android.support.v4.app.FragmentTransaction;
         }
 
         // If current FragmentComponent do not consume then dispatch to the global BackPressConsumer.
-        if (!childRouteConsumeBack) {
-            boolean presenterConsumeBack = false;// = Router.dispatchBackPressedToConsumer(this);
-
-            if (presenterConsumeBack) {
-                return true;
-            }
+        boolean mCurBackHandlerConsumeBack = false;
+        if (!childRouteConsumeBack && mCurBackPressHandler != null) {
+            mCurBackHandlerConsumeBack = mCurBackPressHandler.handleBackPress();
         }
 
-        return false;
+        return mCurBackHandlerConsumeBack;
     }
 
     protected void handleFragmentLink(Link nextLink) {
 
-        if (DialogFragment.class.isAssignableFrom(nextLink.fragmentClass)) {
-            Fragment fragment = Fragment.instantiate(mActivity, nextLink.fragmentClass.getName());
+        if (nextLink.isDialogFragment()) {
+            Fragment fragment = nextLink.getFragment(mActivity);
             ((DialogFragment)fragment).show(mFragmentManager, nextLink.fragmentTag);
             return;
         }
@@ -122,10 +124,7 @@ import android.support.v4.app.FragmentTransaction;
                 mCurLink = nextLink;
 
             } else {
-
-                nextFragment = Fragment.instantiate(mActivity
-                        , nextLink.fragmentClass.getName());
-
+                nextFragment = nextLink.getFragment(mActivity);
                 FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
                 fragmentTransaction
@@ -142,7 +141,7 @@ import android.support.v4.app.FragmentTransaction;
 
     private void addFirstFragmentRoute(Link nextLink) {
         ensureFragmentLinkHasValidTag(nextLink);
-        Fragment fragment = Fragment.instantiate(mActivity, nextLink.fragmentClass.getName());
+        Fragment fragment = nextLink.getFragment(mActivity);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.add(mFragmentContainerResId, fragment, nextLink.fragmentTag);
         fragmentTransaction.commitNow();

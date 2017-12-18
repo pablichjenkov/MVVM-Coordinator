@@ -10,7 +10,7 @@ import java.security.InvalidParameterException;
 /**
  * Attach this View.OnAttachStateChangeListener event listener to any view in the hierarchy.
  */
-public final class ViewModelBinding<V extends View, VM extends BaseViewModel<V>>
+public final class ViewModelViewBinder<V extends View, VM extends BaseViewModel<V>>
         implements View.OnAttachStateChangeListener, ViewTreeObserver.OnGlobalLayoutListener {
 
 
@@ -18,16 +18,16 @@ public final class ViewModelBinding<V extends View, VM extends BaseViewModel<V>>
     private final V view;
 
 
-    public ViewModelBinding(VM viewModel, V view) {
+    public ViewModelViewBinder(VM viewModel, V view) {
 
         if (viewModel == null || view == null) {
-            throw new InvalidParameterException("ViewModelBinding does not accept null parameters.");
+            throw new InvalidParameterException("ViewModelViewBinder does not accept null parameters.");
         }
 
         this.viewModel = viewModel;
         this.view = view;
 
-        view.addOnAttachStateChangeListener(ViewModelBinding.this);
+        view.addOnAttachStateChangeListener(ViewModelViewBinder.this);
         // Sometimes we missed the first attach because the child's already been added.
         // Sometimes we didn't. The binding keeps track to avoid double attachment of the ViewModel,
         // and to guard against attachment to two different views simultaneously.
@@ -35,7 +35,7 @@ public final class ViewModelBinding<V extends View, VM extends BaseViewModel<V>>
             this.onViewAttachedToWindow(view);
         }
 
-        view.getViewTreeObserver().addOnGlobalLayoutListener(ViewModelBinding.this);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(ViewModelViewBinder.this);
 
     }
 
@@ -56,7 +56,7 @@ public final class ViewModelBinding<V extends View, VM extends BaseViewModel<V>>
 
     @Override
     public void onGlobalLayout() {
-        view.getViewTreeObserver().removeOnGlobalLayoutListener(ViewModelBinding.this);
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(ViewModelViewBinder.this);
         viewModel.dispatchViewFirstLayout();
     }
 

@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.intervalintl.voltus.Link;
+import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.navigation.config.NavigationItemInfo;
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
 import com.pedrogomez.renderers.AdapteeCollection;

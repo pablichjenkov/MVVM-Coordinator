@@ -1,6 +1,6 @@
 package com.intervalintl.voltus.navigation;
 
-import com.intervalintl.voltus.Link;
+import com.intervalintl.voltus.root.Link;
 import java.util.List;
 
 

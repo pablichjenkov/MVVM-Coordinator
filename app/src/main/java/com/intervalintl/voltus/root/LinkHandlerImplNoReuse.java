@@ -1,4 +1,4 @@
-package com.intervalintl.voltus;
+package com.intervalintl.voltus.root;
 
 
 import android.app.Activity;
@@ -18,8 +18,8 @@ import android.support.v4.app.FragmentTransaction;
 
     protected void handleFragmentLink(Link nextLink) {
 
-        if (DialogFragment.class.isAssignableFrom(nextLink.fragmentClass)) {
-            Fragment fragment = Fragment.instantiate(mActivity, nextLink.fragmentClass.getName());
+        if (nextLink.isDialogFragment()) {
+            Fragment fragment = nextLink.getFragment(mActivity);
             ((DialogFragment)fragment).show(mFragmentManager, nextLink.fragmentTag);
             return;
         }
@@ -32,7 +32,7 @@ import android.support.v4.app.FragmentTransaction;
         }
 
         ensureFragmentLinkHasValidTag(nextLink);
-        Fragment fragment = Fragment.instantiate(mActivity, nextLink.fragmentClass.getName());
+        Fragment fragment = nextLink.getFragment(mActivity);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(mFragmentContainerResId, fragment, nextLink.fragmentTag);
         fragmentTransaction.commitNow();
