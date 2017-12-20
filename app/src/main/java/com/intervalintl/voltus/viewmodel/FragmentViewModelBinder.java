@@ -1,13 +1,12 @@
 package com.intervalintl.voltus.viewmodel;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 
-public final class FragmentViewModelBinder<VM extends ViewModel>
+public final class FragmentViewModelBinder<VM extends BaseViewModel>
         extends FragmentManager.FragmentLifecycleCallbacks {
 
     private final FragmentManager fragmentManager;
@@ -31,14 +30,15 @@ public final class FragmentViewModelBinder<VM extends ViewModel>
     @Override
     public void onFragmentPreAttached(FragmentManager fm, Fragment f, Context context) {
         if (f == fragment) {
-            VM viewModel = ViewModelProviders.of(fragment).get(viewModelId, viewModelClass);
             fragmentManager.unregisterFragmentLifecycleCallbacks(this);
+            VM viewModel = ViewModelProviders.of(fragment).get(viewModelId, viewModelClass);
+            viewModel.onFragmentCreated();
             callback.onViewModelBound(viewModel);
         }
     }
 
 
-    public interface Callback<U extends ViewModel> {
+    public interface Callback<U extends BaseViewModel> {
         void onViewModelBound(U viewModel);
     }
 

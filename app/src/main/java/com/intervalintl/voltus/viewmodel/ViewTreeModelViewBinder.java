@@ -10,7 +10,7 @@ import java.security.InvalidParameterException;
 /**
  * Attach this View.OnAttachStateChangeListener event listener to any view in the hierarchy.
  */
-public final class ViewModelViewBinder<V extends View, VM extends BaseViewModel<V>>
+public final class ViewTreeModelViewBinder<V extends View, VM extends BaseViewModel>
         implements View.OnAttachStateChangeListener, ViewTreeObserver.OnGlobalLayoutListener {
 
 
@@ -18,16 +18,16 @@ public final class ViewModelViewBinder<V extends View, VM extends BaseViewModel<
     private final V view;
 
 
-    public ViewModelViewBinder(VM viewModel, V view) {
+    public ViewTreeModelViewBinder(V view, VM viewModel) {
 
         if (viewModel == null || view == null) {
-            throw new InvalidParameterException("ViewModelViewBinder does not accept null parameters.");
+            throw new InvalidParameterException("ViewTreeModelViewBinder does not accept null parameters.");
         }
 
         this.viewModel = viewModel;
         this.view = view;
 
-        view.addOnAttachStateChangeListener(ViewModelViewBinder.this);
+        view.addOnAttachStateChangeListener(ViewTreeModelViewBinder.this);
         // Sometimes we missed the first attach because the child's already been added.
         // Sometimes we didn't. The binding keeps track to avoid double attachment of the ViewModel,
         // and to guard against attachment to two different views simultaneously.
@@ -35,29 +35,29 @@ public final class ViewModelViewBinder<V extends View, VM extends BaseViewModel<
             this.onViewAttachedToWindow(view);
         }
 
-        view.getViewTreeObserver().addOnGlobalLayoutListener(ViewModelViewBinder.this);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(ViewTreeModelViewBinder.this);
 
     }
 
     @Override
     public void onViewAttachedToWindow(@NonNull View v) {
-        if (viewModel.isAttached()) {
+        if (viewModel.isViewAttached()) {
             throw new IllegalStateException(
                     "BaseViewModel " + viewModel + " is already attached");
         }
 
-        viewModel.attach(view);
+        viewModel.onViewAttach();
     }
 
     @Override
     public void onViewDetachedFromWindow(@NonNull View v) {
-        viewModel.detach(view);
+        viewModel.onViewDetach();
     }
 
     @Override
     public void onGlobalLayout() {
-        view.getViewTreeObserver().removeOnGlobalLayoutListener(ViewModelViewBinder.this);
-        viewModel.dispatchViewFirstLayout();
+        view.getViewTreeObserver().removeOnGlobalLayoutListener(ViewTreeModelViewBinder.this);
+        viewModel.onFirstViewLayout();
     }
 
     private static boolean isAttachedToWindow(View view) {

@@ -6,7 +6,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.res.AssetManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.View;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.intervalintl.voltus.root.Link;
@@ -24,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
+public class DrawerActivityViewModel extends BaseViewModel {
 
 
     private static final String TAG = "DrawerViewModel";
@@ -54,6 +53,7 @@ public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
         LinkRequest
     }
 
+    private AssetManager assetManager;
     private final MutableLiveData<Event> mObservable = new MutableLiveData<>();
     private MenuItemManager mMenuItemManager;
     public boolean drawerOpenState;
@@ -62,9 +62,15 @@ public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
     private Link mCurLink;
 
 
+    public DrawerActivityViewModel() {}
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
+    }
+
     @Override
-    public void attach(V view) {
-        super.attach(view);
+    public void onViewAttach() {
+        super.onViewAttach();
 
         mMenuItemManager = setupItemManager();
         AdapteeCollection<NavigationItem> menuItemCollection = mMenuItemManager.mMenuItemCollection;
@@ -86,8 +92,8 @@ public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
     }
 
     @Override
-    public void detach(V view) {
-        super.detach(view);
+    public void onViewDetach() {
+        super.onViewDetach();
     }
 
     public LiveData<Event> getObservable() {
@@ -191,7 +197,7 @@ public class DrawerActivityViewModel<V extends View> extends BaseViewModel<V> {
         AdapteeCollection<NavigationItem> navigationItems = new ListAdapteeCollection<>();
 
         try {
-            AssetManager assetManager = getView().getContext().getAssets();
+
             InputStream inputStream = assetManager.open("navigation_items.json");
             Reader reader = new InputStreamReader(inputStream, "UTF-8");
 

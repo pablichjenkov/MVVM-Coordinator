@@ -2,35 +2,55 @@ package com.intervalintl.voltus.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.CallSuper;
-import android.view.View;
-import java.lang.ref.WeakReference;
 
 
-public class BaseViewModel<V extends View> extends ViewModel {
+public class BaseViewModel extends ViewModel {
 
-    private boolean attached;
-    private WeakReference<V> viewRef;
+    private String id;
+    private boolean fragmentAttached;
+    private boolean viewAttached;
+    private boolean hasBeenLayout;
+
 
     @CallSuper
-    public void attach(V view) {
-        viewRef = new WeakReference<>(view);
-        attached = true;
+    public void onFragmentCreated() {
+        fragmentAttached = true;
     }
 
     @CallSuper
-    public void detach(V view) {
-        viewRef.clear();
-        viewRef = null;
-        attached = false;
+    public void onViewAttach() {
+        viewAttached = true;
     }
 
-    public void dispatchViewFirstLayout() {}
-
-    protected V getView() {
-        return viewRef != null ? viewRef.get() : null;
+    @CallSuper
+    public void onViewDetach() {
+        viewAttached = false;
+        hasBeenLayout = false;
     }
 
-    public final boolean isAttached() {
-        return attached;
+    @CallSuper
+    public void onFirstViewLayout() {
+        hasBeenLayout = true;
+    }
+
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isFragmentAttached() {
+        return fragmentAttached;
+    }
+
+    public final boolean isViewAttached() {
+        return viewAttached;
+    }
+
+    public boolean hasBeenLayout() {
+        return hasBeenLayout;
     }
 }

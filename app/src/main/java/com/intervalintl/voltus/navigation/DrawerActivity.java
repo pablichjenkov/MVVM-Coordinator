@@ -2,6 +2,7 @@ package com.intervalintl.voltus.navigation;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -13,14 +14,14 @@ import android.view.View;
 import com.intervalintl.voltus.root.RootFragmentActivity;
 import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.viewmodel.ViewModelViewBinder;
+import com.intervalintl.voltus.viewmodel.ViewTreeModelViewBinder;
 import com.pedrogomez.renderers.RVRendererAdapter;
 
 
 public class DrawerActivity extends RootFragmentActivity {
 
     protected DrawerActivityViewModel mDrawerViewModel;
-    protected ViewModelViewBinder mViewModelViewBinder;
+    protected ViewTreeModelViewBinder mViewTreeModelViewBinder;
     protected DrawerLayout mDrawerLayout;
     protected NavigationDrawer mNavigationDrawer;
     protected RecyclerView mRecyclerView;
@@ -44,6 +45,9 @@ public class DrawerActivity extends RootFragmentActivity {
 
         mDrawerViewModel = ViewModelProviders.of(DrawerActivity.this)
                 .get(DrawerActivityViewModel.class);
+
+        AssetManager assetManager = getAssets();
+        mDrawerViewModel.setAssetManager(assetManager);
 
         mDrawerViewModel.getObservable().observe(DrawerActivity.this
                 , new Observer<DrawerActivityViewModel.Event>() {
@@ -88,7 +92,7 @@ public class DrawerActivity extends RootFragmentActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DrawerActivity.this
                 , LinearLayoutManager.VERTICAL, false));
 
-        mViewModelViewBinder = new ViewModelViewBinder(mDrawerViewModel, mDrawerLayout);
+        mViewTreeModelViewBinder = new ViewTreeModelViewBinder(mDrawerLayout, mDrawerViewModel);
 
         mButtonDrawerToggle = findViewById(R.id.activity_drawer_fab_drawer_toggle);
         mButtonDrawerToggle.setOnClickListener(new View.OnClickListener() {
