@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "101854162340",
+    "firebase_url": "https://hamper-app-2018.firebaseio.com",
+    "project_id": "hamper-app-2018",
+    "storage_bucket": "hamper-app-2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101854162340:android:eb5e67015f6342b6",
+        "android_client_info": {
+          "package_name": "com.intervalintl.voltus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101854162340-q7v67s3cqplashnblehn89k7u99l3pgm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.intervalintl.voltus",
+            "certificate_hash": "ad0eb4c98a227f646ef81ae334ee2cf33ca5f873"
+          }
+        },
+        {
+          "client_id": "101854162340-cqiso1hg2k8k0rdacfkaocg1e5v162l3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4ZWJa3u9AnK51_g5jPgmmlMZV_1gLFfo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101854162340-cqiso1hg2k8k0rdacfkaocg1e5v162l3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

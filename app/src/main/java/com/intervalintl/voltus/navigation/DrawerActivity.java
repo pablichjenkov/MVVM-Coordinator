@@ -51,7 +51,7 @@ public class DrawerActivity extends BaseActivity {
 
         setBackPressHandler(mDrawerCoordinator);
         mDrawerCoordinator.onCreate(getRouter());
-        mDrawerCoordinator.act();
+        mDrawerCoordinator.dispatch();
     }
 
     protected void setupView() {

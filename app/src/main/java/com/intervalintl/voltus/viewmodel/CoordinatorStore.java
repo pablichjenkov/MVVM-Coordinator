@@ -27,7 +27,7 @@ public class CoordinatorStore {
     }
 
     /**
-     * This class has to be public and static so can be instantiated through reflection.
+     * This class has to be public and static so can be instantiated using Java Reflection.
      * It will contain all the Coordinator instances of the given FragmentActivity.
      * */
     public static class CoordinatorStoreViewModel extends ViewModel {

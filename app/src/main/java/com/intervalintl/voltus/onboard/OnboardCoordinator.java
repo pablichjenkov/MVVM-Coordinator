@@ -48,7 +48,7 @@ public class OnboardCoordinator extends Coordinator {
     }
 
     @Override
-    public void act() {
+    public void dispatch() {
         if (state == State.Idle) {
             showSplashScreen();
         }
@@ -59,7 +59,7 @@ public class OnboardCoordinator extends Coordinator {
         else if (state == State.Login) {
             //showLoginScreen();
         }
-        Log.d("Pablo", "Onboarding Coordinator.act() State-> " + state.name());
+        Log.d("Pablo", "Onboarding Coordinator.dispatch() State-> " + state.name());
     }
 
     @Override

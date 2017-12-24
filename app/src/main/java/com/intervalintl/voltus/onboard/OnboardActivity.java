@@ -28,7 +28,7 @@ public class OnboardActivity extends BaseActivity {
 
         setBackPressHandler(onboardCoordinator);
         onboardCoordinator.onCreate(getRouter());
-        onboardCoordinator.act();
+        onboardCoordinator.dispatch();
     }
 
     @Override

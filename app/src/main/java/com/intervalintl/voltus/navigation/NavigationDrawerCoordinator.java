@@ -71,7 +71,7 @@ public class NavigationDrawerCoordinator extends Coordinator {
     }
 
     @Override
-    public void act() {
+    public void dispatch() {
 
     }
 

@@ -22,7 +22,7 @@ public abstract class Coordinator implements BackPressHandler, ViewTreeAttachBin
         this.tagId = tagId;
     }
 
-    public abstract void act();
+    public abstract void dispatch();
     public abstract void shut();
     public abstract <VM extends BaseViewModel> VM provideViewModel(BaseFragment baseFragment);
 
