@@ -10,7 +10,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.navigation.config.NavigationItemInfo;
+import com.intervalintl.voltus.root.Router;
+import com.intervalintl.voltus.viewmodel.BaseFragment;
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
+import com.intervalintl.voltus.viewmodel.Coordinator;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -23,10 +26,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 
-public class DrawerActivityViewModel extends BaseViewModel {
+public class NavigationDrawerCoordinator extends Coordinator {
 
 
-    private static final String TAG = "DrawerViewModel";
+    private static final String TAG = "DrawerCoordinator";
 
     public class Event {
         public final EventType type;
@@ -55,6 +58,7 @@ public class DrawerActivityViewModel extends BaseViewModel {
 
     private AssetManager assetManager;
     private final MutableLiveData<Event> mObservable = new MutableLiveData<>();
+    private Router router;
     private MenuItemManager mMenuItemManager;
     public boolean drawerOpenState;
     private boolean mIsRestore;
@@ -62,7 +66,33 @@ public class DrawerActivityViewModel extends BaseViewModel {
     private Link mCurLink;
 
 
-    public DrawerActivityViewModel() {}
+    public NavigationDrawerCoordinator(String coordinatorId) {
+        super(coordinatorId);
+    }
+
+    @Override
+    public void act() {
+
+    }
+
+    @Override
+    public void shut() {
+
+    }
+
+    @Override
+    public <VM extends BaseViewModel> VM provideViewModel(BaseFragment baseFragment) {
+        return null;
+    }
+
+    @Override
+    public boolean handleBackPress() {
+        return false;
+    }
+
+    public void onCreate(Router router) {
+        this.router = router;
+    }
 
     public void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;

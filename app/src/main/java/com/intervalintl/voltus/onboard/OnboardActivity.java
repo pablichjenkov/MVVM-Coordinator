@@ -1,43 +1,39 @@
 package com.intervalintl.voltus.onboard;
 
 import android.os.Bundle;
-import android.util.Log;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.root.RootFragmentActivity;
-import com.intervalintl.voltus.util.InteractorUtil;
+import com.intervalintl.voltus.util.CoordinatorUtil;
+import com.intervalintl.voltus.viewmodel.BaseActivity;
 
 
-public class OnboardActivity extends RootFragmentActivity {
+public class OnboardActivity extends BaseActivity {
 
-
-    private OnboardInteractor onboardInteractor;
+    private OnboardCoordinator onboardCoordinator;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_onboard);
+        setupCoordinator();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setBackPressHandler(onboardInteractor);
+    protected void setupCoordinator() {
 
-        onboardInteractor = new OnboardInteractor(InteractorUtil.INTERACTOR_ONBOARD
-                , this, getLinkHandler(), this);
+        onboardCoordinator = getCoordinatorStore().get(CoordinatorUtil.COORDINATOR_ONBOARD_ID);
+        if (onboardCoordinator == null) {
+            onboardCoordinator = new OnboardCoordinator(CoordinatorUtil.COORDINATOR_ONBOARD_ID);
+            getCoordinatorStore().put(CoordinatorUtil.COORDINATOR_ONBOARD_ID, onboardCoordinator);
+        }
 
-        onboardInteractor.act();
+        setBackPressHandler(onboardCoordinator);
+        onboardCoordinator.onCreate(getRouter());
+        onboardCoordinator.act();
     }
 
     @Override
     protected int getFragmentContainerId() {
         return R.id.onboard_fragment_container;
-    }
-
-
-    public void onSplashEnd () {
-        Log.d("Delete me", "onSplashEnd successfully called");
     }
 
 }

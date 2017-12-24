@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 
-public abstract class RootFragmentActivity extends AppCompatActivity {
+public abstract class RouterActivity extends AppCompatActivity {
 
 
-    private LinkHandlerImpl mLinkHandlerDelegate;
+    private RouterImpl mRouterDelegate;
 
 
     @CallSuper
@@ -18,7 +18,7 @@ public abstract class RootFragmentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mLinkHandlerDelegate = new LinkHandlerImpl(RootFragmentActivity.this
+        mRouterDelegate = new RouterImpl(RouterActivity.this
                 , savedInstanceState
                 , getSupportFragmentManager()
                 , getFragmentContainerId());
@@ -27,31 +27,31 @@ public abstract class RootFragmentActivity extends AppCompatActivity {
     @CallSuper
     @Override
     protected void onSaveInstanceState(Bundle outBundle) {
-        mLinkHandlerDelegate.onSaveInstanceState(outBundle);
+        mRouterDelegate.onSaveInstanceState(outBundle);
         super.onSaveInstanceState(outBundle);
     }
 
     @CallSuper
     @Override
     protected void onDestroy() {
-        mLinkHandlerDelegate.onDestroy();
+        mRouterDelegate.onDestroy();
         super.onDestroy();
     }
 
     @CallSuper
     @Override
     public void onBackPressed() {
-        if (!mLinkHandlerDelegate.handleBackPress()) {
+        if (!mRouterDelegate.handleBackPress()) {
             super.onBackPressed();
         }
     }
 
     protected void setBackPressHandler(BackPressHandler backPressHandler) {
-        mLinkHandlerDelegate.setBackPressHandler(backPressHandler);
+        mRouterDelegate.setBackPressHandler(backPressHandler);
     }
 
-    protected LinkHandler getLinkHandler() {
-        return mLinkHandlerDelegate;
+    protected Router getRouter() {
+        return mRouterDelegate;
     }
 
     protected abstract @IdRes int getFragmentContainerId();

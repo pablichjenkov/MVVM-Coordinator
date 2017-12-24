@@ -1,5 +1,7 @@
 package com.intervalintl.voltus.onboard.splash;
 
+import android.util.Log;
+
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
 
 
@@ -24,24 +26,8 @@ public class SplashViewModel extends BaseViewModel {
     }
 
     @Override
-    public void onFirstViewLayout() {
-        super.onFirstViewLayout();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep( 3000);
-                    listener.onSplashFinished();
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }).start();
-
+    public void onFirstLayout() {
+        super.onFirstLayout();
     }
 
     @Override
@@ -52,6 +38,35 @@ public class SplashViewModel extends BaseViewModel {
     @Override
     protected void onCleared() {
         super.onCleared();
+    }
+
+
+    // region: Custom methods
+
+    boolean timing;
+    public void startSplash() {
+        if (!timing) {
+            timing = true;
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+
+                        Thread.sleep( 5000);
+
+                        Log.d("Pablo", "Dispatching splash timeout");
+                        listener.onSplashFinished();
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }).start();
+        }
+
     }
 
 

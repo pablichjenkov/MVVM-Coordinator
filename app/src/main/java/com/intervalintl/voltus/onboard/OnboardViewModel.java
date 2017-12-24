@@ -1,9 +1,9 @@
-package com.intervalintl.voltus.onboard.login;
+package com.intervalintl.voltus.onboard;
 
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
 
 
-public class LoginViewModel extends BaseViewModel {
+public class OnboardViewModel extends BaseViewModel {
 
     // TODO: Use PublishSubject from RxJava
     private Listener listener;
@@ -16,6 +16,7 @@ public class LoginViewModel extends BaseViewModel {
     public void loginSuccess() {
         listener.onLoginSuccess();
     }
+
 
     public interface Listener {
         void onLoginSuccess();

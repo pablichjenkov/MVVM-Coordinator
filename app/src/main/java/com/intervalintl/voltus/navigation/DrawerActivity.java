@@ -1,7 +1,6 @@
 package com.intervalintl.voltus.navigation;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,17 +10,17 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import com.intervalintl.voltus.root.RootFragmentActivity;
 import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.viewmodel.ViewTreeModelViewBinder;
+import com.intervalintl.voltus.util.CoordinatorUtil;
+import com.intervalintl.voltus.viewmodel.BaseActivity;
+import com.intervalintl.voltus.viewmodel.ViewTreeAttachBinder;
 import com.pedrogomez.renderers.RVRendererAdapter;
 
 
-public class DrawerActivity extends RootFragmentActivity {
+public class DrawerActivity extends BaseActivity {
 
-    protected DrawerActivityViewModel mDrawerViewModel;
-    protected ViewTreeModelViewBinder mViewTreeModelViewBinder;
+    protected NavigationDrawerCoordinator mDrawerCoordinator;
     protected DrawerLayout mDrawerLayout;
     protected NavigationDrawer mNavigationDrawer;
     protected RecyclerView mRecyclerView;
@@ -33,6 +32,7 @@ public class DrawerActivity extends RootFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
+        setupCoordinator();
         setupView();
     }
 
@@ -41,19 +41,28 @@ public class DrawerActivity extends RootFragmentActivity {
         return R.id.drawer_activity_fragment_container;
     }
 
+    protected void setupCoordinator() {
+
+        mDrawerCoordinator = getCoordinatorStore().get(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID);
+        if (mDrawerCoordinator == null) {
+            mDrawerCoordinator = new NavigationDrawerCoordinator(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID);
+            getCoordinatorStore().put(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID, mDrawerCoordinator);
+        }
+
+        setBackPressHandler(mDrawerCoordinator);
+        mDrawerCoordinator.onCreate(getRouter());
+        mDrawerCoordinator.act();
+    }
+
     protected void setupView() {
-
-        mDrawerViewModel = ViewModelProviders.of(DrawerActivity.this)
-                .get(DrawerActivityViewModel.class);
-
         AssetManager assetManager = getAssets();
-        mDrawerViewModel.setAssetManager(assetManager);
+        mDrawerCoordinator.setAssetManager(assetManager);
 
-        mDrawerViewModel.getObservable().observe(DrawerActivity.this
-                , new Observer<DrawerActivityViewModel.Event>() {
+        mDrawerCoordinator.getObservable().observe(DrawerActivity.this
+                , new Observer<NavigationDrawerCoordinator.Event>() {
 
             @Override
-            public void onChanged(@Nullable DrawerActivityViewModel.Event event) {
+            public void onChanged(@Nullable NavigationDrawerCoordinator.Event event) {
 
                 switch (event.type) {
 
@@ -74,9 +83,10 @@ public class DrawerActivity extends RootFragmentActivity {
                         closeDrawer(Gravity.LEFT);
                         break;
 
+                    // TODO: Move this logic inside the child coordinator
                     case LinkRequest:
-                        Link nextLink = mDrawerViewModel.getNextLink();
-                        getLinkHandler().handleLink(nextLink);
+                        Link nextLink = mDrawerCoordinator.getNextLink();
+                        getRouter().handleLink(nextLink);
                         break;
 
                 }
@@ -92,13 +102,14 @@ public class DrawerActivity extends RootFragmentActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(DrawerActivity.this
                 , LinearLayoutManager.VERTICAL, false));
 
-        mViewTreeModelViewBinder = new ViewTreeModelViewBinder(mDrawerLayout, mDrawerViewModel);
+        // It injects a listener into the passed view for attach events
+        new ViewTreeAttachBinder(mDrawerLayout, mDrawerCoordinator);
 
         mButtonDrawerToggle = findViewById(R.id.activity_drawer_fab_drawer_toggle);
         mButtonDrawerToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDrawerViewModel.toggleDrawer();
+                mDrawerCoordinator.toggleDrawer();
             }
         });
 
@@ -126,12 +137,12 @@ public class DrawerActivity extends RootFragmentActivity {
 
         @Override
         public void onDrawerOpened(View drawerView) {
-            mDrawerViewModel.drawerOpenState = true;
+            mDrawerCoordinator.drawerOpenState = true;
         }
 
         @Override
         public void onDrawerClosed(View drawerView) {
-            mDrawerViewModel.drawerOpenState = false;
+            mDrawerCoordinator.drawerOpenState = false;
         }
 
         @Override

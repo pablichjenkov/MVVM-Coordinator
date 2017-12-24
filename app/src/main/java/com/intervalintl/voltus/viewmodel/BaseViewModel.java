@@ -3,36 +3,15 @@ package com.intervalintl.voltus.viewmodel;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.CallSuper;
 
-
-public class BaseViewModel extends ViewModel {
+/**
+ * Don't keep references of Views in this class, this class persist Configuration Changes.
+ * */
+public class BaseViewModel extends ViewModel implements ViewTreeAttachBinder.Callback {
 
     private String id;
     private boolean fragmentAttached;
     private boolean viewAttached;
     private boolean hasBeenLayout;
-
-
-    @CallSuper
-    public void onFragmentCreated() {
-        fragmentAttached = true;
-    }
-
-    @CallSuper
-    public void onViewAttach() {
-        viewAttached = true;
-    }
-
-    @CallSuper
-    public void onViewDetach() {
-        viewAttached = false;
-        hasBeenLayout = false;
-    }
-
-    @CallSuper
-    public void onFirstViewLayout() {
-        hasBeenLayout = true;
-    }
-
 
     public void setId(String id) {
         this.id = id;
@@ -42,10 +21,27 @@ public class BaseViewModel extends ViewModel {
         return id;
     }
 
-    public boolean isFragmentAttached() {
-        return fragmentAttached;
+    @CallSuper
+    @Override
+    public void onViewAttach() {
+        viewAttached = true;
     }
 
+    @CallSuper
+    @Override
+    public void onViewDetach() {
+        viewAttached = false;
+        hasBeenLayout = false;
+    }
+
+    @CallSuper
+    @Override
+    public void onFirstLayout() {
+        hasBeenLayout = true;
+    }
+
+    @CallSuper
+    @Override
     public final boolean isViewAttached() {
         return viewAttached;
     }
@@ -53,4 +49,14 @@ public class BaseViewModel extends ViewModel {
     public boolean hasBeenLayout() {
         return hasBeenLayout;
     }
+
+    @CallSuper
+    public void onFragmentCreated() {
+        fragmentAttached = true;
+    }
+
+    public boolean isFragmentAttached() {
+        return fragmentAttached;
+    }
+
 }

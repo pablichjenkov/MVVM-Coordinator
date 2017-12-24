@@ -8,9 +8,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-/* package */ class LinkHandlerImplNoReuse extends LinkHandlerImpl {
+/* package */ class RouterImplNoReuse extends RouterImpl {
 
-    /* package */ LinkHandlerImplNoReuse(Activity activity, Bundle savedInstance, FragmentManager fragmentManager
+    /* package */ RouterImplNoReuse(Activity activity, Bundle savedInstance, FragmentManager fragmentManager
             , int fragmentContainerResId, String routerId) {
 
         super(activity, savedInstance, fragmentManager, fragmentContainerResId);

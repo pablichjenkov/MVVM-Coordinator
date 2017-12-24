@@ -1,9 +1,11 @@
 package com.intervalintl.voltus.navigation;
 
+import android.support.annotation.Keep;
 import com.intervalintl.voltus.root.Link;
 import java.util.List;
 
 
+@Keep
 public class NavigationItem {
 
 

@@ -18,10 +18,10 @@ public class NavigationItemRenderer extends Renderer<NavigationItem> {
     private View rootView;
     private ImageView menuItemIcon;
     private TextView menuItemName;
-    private DrawerActivityViewModel drawerViewModel;
+    private NavigationDrawerCoordinator drawerViewModel;
 
 
-    public NavigationItemRenderer(DrawerActivityViewModel drawerViewModel) {
+    public NavigationItemRenderer(NavigationDrawerCoordinator drawerViewModel) {
         this.drawerViewModel = drawerViewModel;
     }
 

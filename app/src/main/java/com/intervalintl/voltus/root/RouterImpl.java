@@ -8,8 +8,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
-/* package */ class LinkHandlerImpl implements LinkHandler {
+/* package */ class RouterImpl implements Router {
 
 
     private static final String KEY_CURRENT_LINK = "key_current_link";
@@ -20,7 +21,7 @@ import android.support.v4.app.FragmentTransaction;
     protected int mFragmentContainerResId;
 
 
-    /* package */ LinkHandlerImpl(Activity activity, Bundle savedInstance, FragmentManager fragmentManager
+    /* package */ RouterImpl(Activity activity, Bundle savedInstance, FragmentManager fragmentManager
             , @IdRes int fragmentContainerResId) {
 
         mActivity = activity;
@@ -65,6 +66,11 @@ import android.support.v4.app.FragmentTransaction;
     }
 
     @Override
+    public FragmentManager getFragmentManager() {
+        return mFragmentManager;
+    }
+
+    @Override
     public boolean handleBackPress() {
 
         // if there is not an active link then unregister and return.
@@ -94,7 +100,6 @@ import android.support.v4.app.FragmentTransaction;
     }
 
     protected void handleFragmentLink(Link nextLink) {
-
         if (nextLink.isDialogFragment()) {
             Fragment fragment = nextLink.getFragment(mActivity);
             ((DialogFragment)fragment).show(mFragmentManager, nextLink.fragmentTag);
@@ -107,8 +112,11 @@ import android.support.v4.app.FragmentTransaction;
             return;
         }
 
+        Log.d("Router", "Router.handleFragmentLink: CurFragment -> " + mCurLink.fragmentTag);
+
         // If next link has the fragmentTagId of the current link. Do nothing
         if (mCurLink.fragmentTag.equals(nextLink.fragmentTag)) {
+            Log.d("Router", "Fragment " + nextLink.fragmentTag + "is current Path");
             return;
         }
 
@@ -119,11 +127,13 @@ import android.support.v4.app.FragmentTransaction;
         if (curFragment != null) {
 
             if (nextFragment != null) {
+                Log.d("Router", "Reusing " + nextLink.fragmentTag + " from the FragmentManager");
                 FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                 fragmentTransaction.show(nextFragment).hide(curFragment).commitNow();
                 mCurLink = nextLink;
 
             } else {
+                Log.d("Router", "Creating new Instance of: " + nextLink.fragmentTag);
                 nextFragment = nextLink.getFragment(mActivity);
                 FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
 
@@ -135,6 +145,9 @@ import android.support.v4.app.FragmentTransaction;
                 mCurLink = nextLink;
             }
 
+        } else {
+            Log.d("Router", "curFragment was not found in the FragmentManager. There" +
+                    " must be a problem with the FragmentManager lifecycle");
         }
 
     }

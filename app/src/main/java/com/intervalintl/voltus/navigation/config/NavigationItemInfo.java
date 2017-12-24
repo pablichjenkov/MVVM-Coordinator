@@ -1,6 +1,8 @@
 package com.intervalintl.voltus.navigation.config;
 
+import android.support.annotation.Keep;
 
+@Keep
 public class NavigationItemInfo {
 
     public String sideMenuModelClass;

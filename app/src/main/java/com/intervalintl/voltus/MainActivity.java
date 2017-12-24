@@ -1,22 +1,17 @@
 package com.intervalintl.voltus;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.intervalintl.voltus.navigation.DrawerActivity;
 
 
 public class MainActivity extends DrawerActivity {
 
-    private ActivityModel mActivityModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mActivityModel = ViewModelProviders.of(MainActivity.this).get(ActivityModel.class);
 
     }
 
