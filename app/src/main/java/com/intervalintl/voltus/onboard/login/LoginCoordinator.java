@@ -1,7 +1,6 @@
 package com.intervalintl.voltus.onboard.login;
 
 import com.intervalintl.voltus.MainActivity;
-import com.intervalintl.voltus.onboard.OnboardCoordinator;
 import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.util.CoordinatorUtil;
 import com.intervalintl.voltus.viewmodel.BaseFragment;
