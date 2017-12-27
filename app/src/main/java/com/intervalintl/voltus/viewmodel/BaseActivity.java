@@ -15,8 +15,23 @@ public abstract class BaseActivity extends RouterActivity {
         coordinatorStore = new CoordinatorStore(BaseActivity.this);
     }
 
-    public CoordinatorStore getCoordinatorStore() {
+    protected CoordinatorStore getCoordinatorStore() {
         return coordinatorStore;
+    }
+
+    public Coordinator findCoordinatorByTagId(String tagId) {
+        Coordinator result = coordinatorStore.get(tagId);
+        if (result != null) {
+            return result;
+        }
+        for (Coordinator coordinator : coordinatorStore.all()) {
+            result = coordinator.findChildByTagId(tagId);
+            if (result != null) {
+                return result;
+            }
+        }
+
+        return result;
     }
 
 }

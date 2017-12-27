@@ -1,15 +1,11 @@
 package com.intervalintl.voltus.onboard;
 
-import android.os.Handler;
-import android.os.Looper;
+import android.content.Intent;
 import android.util.Log;
-import com.intervalintl.voltus.MainActivity;
-import com.intervalintl.voltus.onboard.login.LoginFragment;
-import com.intervalintl.voltus.onboard.login.LoginViewModel;
+import com.intervalintl.voltus.onboard.login.LoginCoordinator;
 import com.intervalintl.voltus.onboard.splash.SplashFragment;
 import com.intervalintl.voltus.onboard.splash.SplashViewModel;
 import com.intervalintl.voltus.root.Link;
-import com.intervalintl.voltus.root.Router;
 import com.intervalintl.voltus.util.CoordinatorUtil;
 import com.intervalintl.voltus.viewmodel.BaseFragment;
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
@@ -27,24 +23,22 @@ public class OnboardCoordinator extends Coordinator {
     }
 
     private State state = State.Idle;
-    private Map<String, BaseViewModel> viewModeByIdMap;
-    private Router router;
-    private Handler mainHandler;
+    private LoginCoordinator loginCoordinator;
     private SplashViewModel splashViewModel;
-    private LoginViewModel loginViewModel;
+    private Map<String, BaseViewModel> viewModeByIdMap;
 
 
     public OnboardCoordinator(String tagId) {
         super(tagId);
+        loginCoordinator = new LoginCoordinator(CoordinatorUtil.COORDINATOR_LOGIN_ID);
+        addChild(CoordinatorUtil.COORDINATOR_LOGIN_ID, loginCoordinator);
         splashViewModel = new SplashViewModel();
         splashViewModel.setListener(splashListener);
-        loginViewModel = new LoginViewModel();
-        loginViewModel.setListener(loginListener);
     }
 
-    public void onCreate(Router router) {
-        this.router = router;
-        mainHandler = new Handler(Looper.getMainLooper());
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // If requestCode matches this, don't call super to not propagate the event down to children
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -77,9 +71,6 @@ public class OnboardCoordinator extends Coordinator {
         if (viewModelClass.isAssignableFrom(SplashViewModel.class)) {
             viewModel = splashViewModel;
         }
-        else if (viewModelClass.isAssignableFrom(LoginViewModel.class)) {
-            viewModel = loginViewModel;
-        }
 
         return (VM)viewModel;
     }
@@ -103,7 +94,7 @@ public class OnboardCoordinator extends Coordinator {
         state = State.Splash;
         SplashFragment splashFragment;
         splashFragment = new SplashFragment();
-        splashFragment.interactorId = CoordinatorUtil.COORDINATOR_ONBOARD_ID;
+        splashFragment.coordinatorId = CoordinatorUtil.COORDINATOR_ONBOARD_ID;
         splashFragment.viewModelClass = SplashViewModel.class;
         splashFragment.viewModelId = "splashViewModelDefault";
 
@@ -121,38 +112,12 @@ public class OnboardCoordinator extends Coordinator {
                 @Override
                 public void run() {
                     Log.d("Pablo", "Onboarding Coordinator.splashListener() State-> " + state.name());
-                    showLoginScreen();
+                    state = OnboardCoordinator.State.Login;
+                    loginCoordinator.dispatch();
                 }
             });
         }
     };
 
-    public  void showLoginScreen() {
-        state = State.Login;
-        LoginFragment loginFragment;
-        loginFragment = new LoginFragment();
-        loginFragment.interactorId = CoordinatorUtil.COORDINATOR_ONBOARD_ID;
-        loginFragment.viewModelClass = LoginViewModel.class;
-        loginFragment.viewModelId = "loginViewModelDefault";
-
-        Link link = Link.Builder.newLink()
-                .toRoute(loginFragment, "LoginFragment")
-                .build();
-
-        router.handleLink(link);
-    }
-
-    LoginViewModel.Listener loginListener = new LoginViewModel.Listener() {
-        @Override
-        public void onLoginSuccess() {
-
-            Link link = Link.Builder.newLink()
-                    .toRoute(MainActivity.class)
-                    .build();
-
-            router.handleLink(link);
-
-        }
-    };
-
+    
 }

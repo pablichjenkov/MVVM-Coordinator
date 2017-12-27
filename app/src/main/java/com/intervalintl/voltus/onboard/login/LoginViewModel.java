@@ -1,5 +1,7 @@
 package com.intervalintl.voltus.onboard.login;
 
+import android.content.Intent;
+
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
 
 
@@ -20,5 +22,7 @@ public class LoginViewModel extends BaseViewModel {
     public interface Listener {
         void onLoginSuccess();
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 package com.intervalintl.voltus.onboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import com.intervalintl.voltus.R;
 import com.intervalintl.voltus.util.CoordinatorUtil;
@@ -18,8 +19,13 @@ public class OnboardActivity extends BaseActivity {
         setupCoordinator();
     }
 
-    protected void setupCoordinator() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        onboardCoordinator.onActivityResult(requestCode, resultCode, data);
+    }
 
+    protected void setupCoordinator() {
         onboardCoordinator = getCoordinatorStore().get(CoordinatorUtil.COORDINATOR_ONBOARD_ID);
         if (onboardCoordinator == null) {
             onboardCoordinator = new OnboardCoordinator(CoordinatorUtil.COORDINATOR_ONBOARD_ID);

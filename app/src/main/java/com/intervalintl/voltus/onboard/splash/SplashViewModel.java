@@ -53,7 +53,7 @@ public class SplashViewModel extends BaseViewModel {
                 public void run() {
                     try {
 
-                        Thread.sleep( 5000);
+                        Thread.sleep( 3000);
 
                         Log.d("Pablo", "Dispatching splash timeout");
                         listener.onSplashFinished();

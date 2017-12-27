@@ -4,26 +4,32 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v4.app.FragmentActivity;
+
+import java.util.Collection;
 import java.util.HashMap;
 
 
 public class CoordinatorStore {
 
     private static final String INTERACTOR_STORE_VIEW_MODEL_ID = "interactorStoreViewModel";
-    private CoordinatorStoreViewModel interactorStoreViewModel;
+    private CoordinatorStoreViewModel coordinatorStoreViewModel;
 
 
     /* package */ CoordinatorStore(FragmentActivity activity) {
         ViewModelProvider vmp = ViewModelProviders.of(activity);
-        interactorStoreViewModel = vmp.get(INTERACTOR_STORE_VIEW_MODEL_ID, CoordinatorStoreViewModel.class);
+        coordinatorStoreViewModel = vmp.get(INTERACTOR_STORE_VIEW_MODEL_ID, CoordinatorStoreViewModel.class);
     }
 
     public void put(String key, Coordinator coordinator) {
-        interactorStoreViewModel.put(key, coordinator);
+        coordinatorStoreViewModel.put(key, coordinator);
     }
 
     public <T extends Coordinator> T get(String key) {
-        return interactorStoreViewModel.get(key);
+        return coordinatorStoreViewModel.get(key);
+    }
+
+    public Collection<Coordinator> all() {
+        return coordinatorStoreViewModel.mMap.values();
     }
 
     /**

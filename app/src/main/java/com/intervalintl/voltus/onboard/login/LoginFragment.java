@@ -37,31 +37,9 @@ public class LoginFragment extends BaseFragment<LoginViewModel> {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loginViewModel.loginSuccess();
-                firebaseAuth();
+                loginViewModel.loginSuccess();
             }
         });
-    }
-
-    private static final int RC_SIGN_IN = 123;
-    public void firebaseAuth() {
-
-        // Choose authentication providers
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
-                new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
-                //new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()
-        );
-
-        // Create and launch sign-in intent
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
     }
 
 }
