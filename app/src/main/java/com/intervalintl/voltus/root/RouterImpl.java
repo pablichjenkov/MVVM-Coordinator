@@ -66,11 +66,6 @@ import android.util.Log;
     }
 
     @Override
-    public FragmentManager getFragmentManager() {
-        return mFragmentManager;
-    }
-
-    @Override
     public boolean handleBackPress() {
 
         // if there is not an active link then unregister and return.
@@ -161,8 +156,14 @@ import android.util.Log;
     }
 
     private void launchActivityFromLink(Link nextLink) {
-        Intent launchActivityIntent = new Intent(mActivity, nextLink.activityClass);
-        mActivity.startActivity(launchActivityIntent);
+        if (nextLink.activityForResult) {
+            mActivity.startActivityForResult(nextLink.activityIntent, nextLink.activityRequestCode);
+
+        } else {
+            Intent launchActivityIntent = new Intent(mActivity, nextLink.activityClass);
+            mActivity.startActivity(launchActivityIntent);
+        }
+
     }
 
     protected static void ensureFragmentLinkHasValidTag(Link route) {

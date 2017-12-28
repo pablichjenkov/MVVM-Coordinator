@@ -3,7 +3,7 @@ package com.intervalintl.voltus.onboard;
 import android.content.Intent;
 import android.os.Bundle;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.util.CoordinatorUtil;
+import com.intervalintl.voltus.util.Constants;
 import com.intervalintl.voltus.viewmodel.BaseActivity;
 
 
@@ -26,10 +26,10 @@ public class OnboardActivity extends BaseActivity {
     }
 
     protected void setupCoordinator() {
-        onboardCoordinator = getCoordinatorStore().get(CoordinatorUtil.COORDINATOR_ONBOARD_ID);
+        onboardCoordinator = getCoordinatorStore().get(Constants.COORDINATOR_ONBOARD_ID);
         if (onboardCoordinator == null) {
-            onboardCoordinator = new OnboardCoordinator(CoordinatorUtil.COORDINATOR_ONBOARD_ID);
-            getCoordinatorStore().put(CoordinatorUtil.COORDINATOR_ONBOARD_ID, onboardCoordinator);
+            onboardCoordinator = new OnboardCoordinator(Constants.COORDINATOR_ONBOARD_ID);
+            getCoordinatorStore().put(Constants.COORDINATOR_ONBOARD_ID, onboardCoordinator);
         }
 
         setBackPressHandler(onboardCoordinator);

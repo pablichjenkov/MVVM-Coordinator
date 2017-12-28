@@ -12,7 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import com.intervalintl.voltus.root.Link;
 import com.intervalintl.voltus.R;
-import com.intervalintl.voltus.util.CoordinatorUtil;
+import com.intervalintl.voltus.util.Constants;
 import com.intervalintl.voltus.viewmodel.BaseActivity;
 import com.intervalintl.voltus.viewmodel.ViewTreeAttachBinder;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -43,10 +43,10 @@ public class DrawerActivity extends BaseActivity {
 
     protected void setupCoordinator() {
 
-        mDrawerCoordinator = getCoordinatorStore().get(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID);
+        mDrawerCoordinator = getCoordinatorStore().get(Constants.COORDINATOR_NAVIGATION_DRAWER_ID);
         if (mDrawerCoordinator == null) {
-            mDrawerCoordinator = new NavigationDrawerCoordinator(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID);
-            getCoordinatorStore().put(CoordinatorUtil.COORDINATOR_NAVIGATION_DRAWER_ID, mDrawerCoordinator);
+            mDrawerCoordinator = new NavigationDrawerCoordinator(Constants.COORDINATOR_NAVIGATION_DRAWER_ID);
+            getCoordinatorStore().put(Constants.COORDINATOR_NAVIGATION_DRAWER_ID, mDrawerCoordinator);
         }
 
         setBackPressHandler(mDrawerCoordinator);

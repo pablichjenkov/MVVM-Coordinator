@@ -2,6 +2,7 @@ package com.intervalintl.voltus.root;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import java.io.Serializable;
@@ -15,11 +16,16 @@ public class Link implements Serializable {
     }
 
     public String sectionId;
+    public Type type;
+
     private Class<? extends Fragment> fragmentClass;
     private transient Fragment fragment;
     public String fragmentTag;
+
     public Class<? extends Activity> activityClass;
-    public Type type;
+    public Intent activityIntent;
+    public int activityRequestCode;
+    public boolean activityForResult;
 
 
     public String getPath() {
@@ -101,6 +107,14 @@ public class Link implements Serializable {
         public <A extends Activity> Builder toRoute(Class<A> activityClass) {
             mLink.activityClass = activityClass;
             mLink.type = Type.Activity;
+            return this;
+        }
+
+        public Builder toRoute(Intent activityIntent, int requestCode) {
+            mLink.type = Type.Activity;
+            mLink.activityIntent = activityIntent;
+            mLink.activityRequestCode = requestCode;
+            mLink.activityForResult = true;
             return this;
         }
 

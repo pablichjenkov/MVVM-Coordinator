@@ -6,7 +6,7 @@ import com.intervalintl.voltus.onboard.login.LoginCoordinator;
 import com.intervalintl.voltus.onboard.splash.SplashFragment;
 import com.intervalintl.voltus.onboard.splash.SplashViewModel;
 import com.intervalintl.voltus.root.Link;
-import com.intervalintl.voltus.util.CoordinatorUtil;
+import com.intervalintl.voltus.util.Constants;
 import com.intervalintl.voltus.viewmodel.BaseFragment;
 import com.intervalintl.voltus.viewmodel.BaseViewModel;
 import com.intervalintl.voltus.viewmodel.Coordinator;
@@ -30,8 +30,8 @@ public class OnboardCoordinator extends Coordinator {
 
     public OnboardCoordinator(String tagId) {
         super(tagId);
-        loginCoordinator = new LoginCoordinator(CoordinatorUtil.COORDINATOR_LOGIN_ID);
-        addChild(CoordinatorUtil.COORDINATOR_LOGIN_ID, loginCoordinator);
+        loginCoordinator = new LoginCoordinator(Constants.COORDINATOR_LOGIN_ID);
+        addChild(Constants.COORDINATOR_LOGIN_ID, loginCoordinator);
         splashViewModel = new SplashViewModel();
         splashViewModel.setListener(splashListener);
     }
@@ -94,7 +94,7 @@ public class OnboardCoordinator extends Coordinator {
         state = State.Splash;
         SplashFragment splashFragment;
         splashFragment = new SplashFragment();
-        splashFragment.coordinatorId = CoordinatorUtil.COORDINATOR_ONBOARD_ID;
+        splashFragment.coordinatorId = Constants.COORDINATOR_ONBOARD_ID;
         splashFragment.viewModelClass = SplashViewModel.class;
         splashFragment.viewModelId = "splashViewModelDefault";
 
