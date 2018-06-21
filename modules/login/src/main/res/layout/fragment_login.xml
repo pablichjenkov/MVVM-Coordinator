@@ -1,0 +1,124 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+        <!--<VideoView
+            android:id="@+id/login_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />-->
+
+        <ImageView
+            android:id="@+id/login_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:text="login_welcome_text"/>
+
+        <ProgressBar
+            android:id="@+id/login_progress_bar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/login_error_txt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="Name"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/login_email_edt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="email"/>
+
+        <EditText
+            android:id="@+id/login_pass_edt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="password"/>
+
+        <EditText
+            android:id="@+id/login_name_edt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="Name"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/login_phone_edt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="phone"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/login_zipcode_edt"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal"
+            android:hint="zipcode"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/login_action_btn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:text="login"/>
+
+        <Button
+            android:id="@+id/login_toggle_btn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:paddingRight="8dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="right"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="Register"/>
+
+        <Button
+            android:id="@+id/oauth_btn"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="48dp"
+            android:layout_gravity="center_horizontal"
+            android:text="other logins"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

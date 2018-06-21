@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="side_menu_item_ad_row_height">112dp</dimen>
+</resources>
