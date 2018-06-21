@@ -3,9 +3,9 @@ package com.intervalintl.navigation;
 import android.support.v7.app.AppCompatActivity;
 import com.interval.common.login.UserManager;
 import com.intervalintl.coordinator.view.CoordinatorScreenManager;
+import com.intervalintl.feed.FeedBuilder;
 import com.intervalintl.navigation.ui.NavItemPresenter;
 import com.intervalintl.settings.SettingsBuilder;
-
 import java.lang.annotation.Retention;
 import javax.inject.Scope;
 import dagger.BindsInstance;
@@ -42,7 +42,8 @@ public class NavigationBuilder {
             dependencies = ParentComponent.class,
             modules = Module.class
     )
-    public interface Component extends SettingsBuilder.ParentComponent {
+    public interface Component extends FeedBuilder.ParentComponent
+            , SettingsBuilder.ParentComponent {
 
         void inject(NavigationCoordinator drawerCoordinator);
         void inject(NavItemCoordinator navItemCoordinator);

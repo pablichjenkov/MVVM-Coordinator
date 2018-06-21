@@ -30,30 +30,18 @@ dependencies {
 
     // Module Coordinators
     api project(':modules:common')
-    api project(':modules:feed')
-    api project(':modules:settings')
 
     // Android Support
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:cardview-v7:$rootProject.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    implementation "com.android.support.constraint:constraint-layout:$rootProject.constrainLayoutVersion"
 
-    // Architecture Components
-    //implementation "android.arch.lifecycle:runtime:$rootProject.architectureComponentsVersion"
-    //implementation "android.arch.lifecycle:extensions:$rootProject.architectureComponentsVersion"
-    //annotationProcessor "android.arch.lifecycle:compiler:$rootProject.architectureComponentsVersion"
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+    implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
 
     // Dagger2
     implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-
-    // Recycler Helpers
-    implementation ("com.github.pedrovgs:renderers:$rootProject.renderersVersion") {
-        exclude group: 'com.android.support'
-    }
-
-    // GSON Serializer
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 
     // Test
     testImplementation "junit:junit:$rootProject.junitVersion"

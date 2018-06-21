@@ -1,0 +1,83 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <FrameLayout
+        android:id="@+id/fragment_home_dry_cleaning_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHeight_percent="0.32"
+        android:background="@android:color/holo_green_light">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Dry Cleaning"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_home_laundry_item_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHeight_percent="0.32"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_home_dry_cleaning_container"
+        android:background="@android:color/holo_green_light">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Laundry Items"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_home_wash_fold_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHeight_percent="0.32"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_home_laundry_item_container"
+        android:background="@android:color/holo_green_light">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Wash and Fold"/>
+
+    </FrameLayout>
+
+</android.support.constraint.ConstraintLayout>

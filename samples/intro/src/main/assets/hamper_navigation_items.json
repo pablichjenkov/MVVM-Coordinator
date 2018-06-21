@@ -1,9 +1,9 @@
 [
   {
-    "sideMenuModelClass":"com.intervalintl.navigation.settings.SettingsItem",
+    "sideMenuModelClass":"com.intervalintl.navigation.ui.drawer.menu.MenuItem",
     "isSelectable":true,
     "navCoordinatorId":"feedCoordinator",
-    "navCoordinatorClass":"com.intervalintl.feed.FeedCoordinator"
+    "navCoordinatorClass":"com.intervalintl.navigation.navitem.FeedNavItem"
   },
   {
     "sideMenuModelClass":"com.intervalintl.navigation.ui.drawer.menu.MenuItem",

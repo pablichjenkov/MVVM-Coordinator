@@ -1,7 +1,8 @@
 include ':samples:intro',
         ':modules:settings',
-        ':modules:login',
         ':modules:onboard',
         ':modules:navigation',
+        ':modules:login',
+        ':modules:feed',
         ':modules:common',
         ':coordinator'

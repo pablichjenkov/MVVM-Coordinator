@@ -67,7 +67,7 @@ public class SplashViewModel extends Coordinator<SplashViewModelBuilder.Componen
             public void run() {
                 try {
 
-                    Thread.sleep( 3000);
+                    Thread.sleep( 1500);
 
                     Log.d("SplashViewModel","SplashViewModel: Dispatching splash timeout");
                     listener.onSplashFinished();
