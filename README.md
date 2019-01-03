@@ -1,21 +1,22 @@
 
+# @Deprecated
+##### It's been too hard maintaining the Coordinators Arch implementation in Java and Kotlin. 
+##### I decide to only support the Kotlin version so go to 
+##### [Android Coordinators Kotlin Implementation](this link https://github.com/pablichjenkov/Coordinators)
 
 # Kotlin Version
-**After some feedback from Kotlin folks and watching this video: https://www.youtube.com/watch?v=KjoMnsc2lPo
-I decided to make a kotlin implementation and also change the name from Coordinator to Flow, I think
-it's more descriptive, check it here: https://github.com/pablichjenkov/Reactive-Wrokflow**
+**check it here: https://github.com/pablichjenkov/Reactive-Wrokflow**
 
-# Java Stay Here.
-**Continue reading here if you plan to use java as your development language.**
 
-# Voltus
+
+### Voltus (this is old, visit above links for updated implementation)
 Voltus is a research on the MVVM-Coordinator architecture. The idea behind Voltus is making an app
 by composing it with small modules rather than a full monolithic mass of code. We call this modules
 **Coordinators**, and they form a **Coordinator Tree** that is unique per Activity. The advantage of
 Coordinators are many, one of them is that you can compile and test them independently, reducing
 build times.
 
- ## Module: Coordinator
+ #### Module: Coordinator
  In this gradle subproject you can see the implementation of the pattern. Coordinators Pattern is 
  basically the State Machine Pattern. Every **Coordinator** has a list of Sub-Coordinators that 
  enter on stage depending on the actions received from external inputs, Sub-Coordinators can be seen
@@ -28,7 +29,7 @@ build times.
  Every time rotation happens the View Tree is destroyed and recreated. When destroying the Views
  unsubscribe from ViewModels, then when re-created they re-subscribe to its previous ViewModel. 
 
- ### How to use
+ ##### How to use
  1. First, define your Activity by extending the **CoordinatorActivity\<Input\>** class.
  This is a helper Activity parametrized to the root Coordinator Input type. This Activity handles
  the root Coordinator lifecycle. Under the hood it uses the Android ViewModel from Architecture
