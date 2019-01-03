@@ -2,11 +2,7 @@
 # @Deprecated
 ##### It's been too hard maintaining the Coordinators Arch implementation in Java and Kotlin. 
 ##### I decide to only support the Kotlin version so go to 
-##### [Android Coordinators Kotlin Implementation](this link https://github.com/pablichjenkov/Coordinators)
-
-# Kotlin Version
-**check it here: https://github.com/pablichjenkov/Reactive-Wrokflow**
-
+[Android Coordinators Kotlin Implementation](https://github.com/pablichjenkov/Coordinators)
 
 
 ### Voltus (this is old, visit above links for updated implementation)
