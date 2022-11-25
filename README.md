@@ -2,7 +2,7 @@
 # @Deprecated
 ##### It's been too hard maintaining the Coordinators Arch implementation in Java and Kotlin. 
 ##### I decide to only support the Kotlin version so go to 
-[Android Coordinators Kotlin Implementation](https://github.com/pablichjenkov/Coordinators)
+[UI-State Management + Compose](https://github.com/pablichjenkov/StateTree)
 
 
 ### Voltus (this is old, visit above links for updated implementation)
