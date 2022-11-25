@@ -8,7 +8,6 @@ public class IntroApplication extends Application /*implements HasActivityInject
 
     //@Inject
     //DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
-    private static IntroApplication INSTANCE;
     private AppComponent appComponent;
     //private Picasso picasso;
 
@@ -16,7 +15,6 @@ public class IntroApplication extends Application /*implements HasActivityInject
     @Override
     public void onCreate() {
         super.onCreate();
-        INSTANCE = this;
 
         appComponent = DaggerAppComponent.builder()
                 //.netModule(new NetModule("https://api.github.com"))
@@ -34,10 +32,6 @@ public class IntroApplication extends Application /*implements HasActivityInject
     public DispatchingAndroidInjector<Activity> activityInjector() {
         return dispatchingAndroidInjector;
     }*/
-
-    public static IntroApplication instance() {
-        return INSTANCE;
-    }
 
     public AppComponent getAppComponent() {
         return appComponent;

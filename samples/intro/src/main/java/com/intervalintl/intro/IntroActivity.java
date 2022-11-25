@@ -27,7 +27,8 @@ public class IntroActivity extends CoordinatorActivity<IntroActivityCoordinatorB
     protected IntroActivityCoordinatorBuilder.Component onProvideRootCoordinatorInput() {
 
         IntroActivityCoordinatorBuilder introBuilder = new IntroActivityCoordinatorBuilder(
-                IntroApplication.instance().getAppComponent());
+                ((IntroApplication) getApplication()).getAppComponent()
+        );
 
         IntroActivityCoordinatorBuilder.Component introActivityComponent = introBuilder.build(
                 IntroActivity.this,
