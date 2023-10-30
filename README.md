@@ -2,7 +2,7 @@
 # @Deprecated
 ##### It's been too hard maintaining the Coordinators Arch implementation in Java and Kotlin. 
 ##### I decide to only support the Kotlin version so go to 
-[UI State Management + Compose](https://github.com/pablichjenkov/uistate3)
+[UI State Management + Compose](https://github.com/pablichjenkov/component-toolkit)
 
 
 ### Voltus (this is old, visit above links for updated implementation)
